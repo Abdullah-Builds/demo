@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fetch Test</title>
+</head>
+<body>
+  <button id="send">Send Data</button>
+  <pre id="output"></pre>
+
+  <script>
+    document.getElementById("send").addEventListener("click", () => {
+      fetch("http://127.0.0.1:5000/api/data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ hello: "world" }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("output").textContent =
+            JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+          document.getElementById("output").textContent = "Error: " + err;
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+</html>
